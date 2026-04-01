@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="HealthcareAI analyses your symptoms using AI to identify probable diseases and recommend actionable next steps — for educational purposes.">
+    <title>HealthcareAI - AI-Powered Symptom Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <header class="site-header" id="siteHeader">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true"></div>
+                <div class="brand-text">
+                    <p class="eyebrow">AI-powered disease detection</p>
+                    <h1>HealthcareAI</h1>
+                </div>
+            </div>
+
+            <button class="theme-toggle" id="themeBtn" type="button" aria-label="Toggle color theme">
+                <span class="toggle-track">
+                    <span class="toggle-thumb">
+                        <span class="icon-sun" aria-hidden="true">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5" />
+                                <line x1="12" y1="1" x2="12" y2="3" />
+                                <line x1="12" y1="21" x2="12" y2="23" />
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                <line x1="1" y1="12" x2="3" y2="12" />
+                                <line x1="21" y1="12" x2="23" y2="12" />
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                            </svg>
+                        </span>
+                        <span class="icon-moon" aria-hidden="true">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                        </span>
+                    </span>
+                </span>
+                <span class="toggle-label" id="toggleLabel">Dark mode</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="page-shell">
+
+        <section class="hero-copy" aria-label="Introduction">
+            <div class="hero-left">
+                <p class="hero-kicker">AI symptom analysis & disease detection</p>
+                <h2>Describe your symptoms. Get probable diagnoses & countermeasures.</h2>
+            </div>
+            <p class="hero-text">
+                " Enter your symptoms and let our AI analyse them to identify probable diseases,
+                assess their likelihood, and recommend clear actionable next steps — all for
+                educational awareness. HealthcareAI does not replace a licensed medical professional. "
+            </p>
+        </section>
+
+        <main class="main-content">
+
+            <section class="card input-card" aria-labelledby="checker-heading">
+                <div class="section-heading">
+                    <h3 id="checker-heading">What symptoms are you experiencing?</h3>
+                </div>
+
+                <div class="field-group">
+                    <p class="field-label">Quick symptom tags</p>
+                    <div class="symptom-chips" id="chipContainer" aria-label="Quick symptom tags">
+                        <button class="chip" type="button" data-val="fever" aria-pressed="false">Fever</button>
+                        <button class="chip" type="button" data-val="headache" aria-pressed="false">Headache</button>
+                        <button class="chip" type="button" data-val="cough" aria-pressed="false">Cough</button>
+                        <button class="chip" type="button" data-val="sore throat" aria-pressed="false">Sore
+                            throat</button>
+                        <button class="chip" type="button" data-val="fatigue" aria-pressed="false">Fatigue</button>
+                        <button class="chip" type="button" data-val="nausea" aria-pressed="false">Nausea</button>
+                        <button class="chip" type="button" data-val="chest pain" aria-pressed="false">Chest
+                            pain</button>
+                        <button class="chip" type="button" data-val="shortness of breath"
+                            aria-pressed="false">Breathlessness</button>
+                        <button class="chip" type="button" data-val="body aches" aria-pressed="false">Body
+                            aches</button>
+                        <button class="chip" type="button" data-val="runny nose" aria-pressed="false">Runny
+                            nose</button>
+                        <button class="chip" type="button" data-val="rash" aria-pressed="false">Rash</button>
+                        <button class="chip" type="button" data-val="dizziness" aria-pressed="false">Dizziness</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="symptomInput">Describe your symptoms in detail</label>
+                    <textarea id="symptomInput"
+                        placeholder="Example: I have had a high fever for 2 days along with a persistent cough and body aches."></textarea>
+                </div>
+
+                <div class="controls-grid">
+                    <div class="field-group">
+                        <label for="ageGroup">Age group</label>
+                        <select id="ageGroup">
+                            <option value="">Select age group</option>
+                            <option value="child (under 12)">Child (under 12)</option>
+                            <option value="teenager (13-18)">Teenager (13-18)</option>
+                            <option value="adult (19-60)">Adult (19-60)</option>
+                            <option value="senior (60+)">Senior (60+)</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender">
+                            <option value="">Select gender</option>
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                            <option value="non-binary">Non-binary</option>
+                            <option value="prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="state">State</label>
+                        <input id="state" class="search-select" list="stateOptions" placeholder="Search state">
+                        <datalist id="stateOptions"></datalist>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="town">Town / City</label>
+                        <input id="town" class="search-select" list="townOptions" placeholder="Select state first" disabled>
+                        <datalist id="townOptions"></datalist>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="duration">Duration</label>
+                        <select id="duration">
+                            <option value="">Select duration</option>
+                            <option value="less than 24 hours">Under 24 hours</option>
+                            <option value="1-3 days">1-3 days</option>
+                            <option value="4-7 days">4-7 days</option>
+                            <option value="over a week">Over a week</option>
+                        </select>
+                    </div>
+
+                    <div class="action-panel">
+                        <button class="btn" id="analyzeBtn" type="button">
+                            <span id="btnText">Analyse symptoms</span>
+                            <span id="btnSpinner" class="spinner" hidden></span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card results-card" id="resultsCard" hidden aria-live="polite"></section>
+
+            <section class="card history-card" id="historyCard" hidden aria-labelledby="history-heading">
+                <div class="section-heading compact">
+                    <p class="section-tag">History</p>
+                    <h3 id="history-heading">Recent queries</h3>
+                </div>
+                <div id="historyList"></div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>HealthcareAI is powered by Google Gemini — for educational awareness only.</p>
+            <p>Probable conditions and recommended steps are not a substitute for licensed medical care.</p>
+        </footer>
+    </div>
+
+    <script src="./locations.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
