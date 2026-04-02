@@ -352,7 +352,14 @@ h1 {
 }
 
 .section-heading.compact {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 16px;
+}
+
+.section-heading.compact > div {
+    min-width: 0;
 }
 
 .section-tag,
@@ -776,6 +783,34 @@ select:focus,
     transition: none;
 }
 
+.history-clear-btn {
+    flex-shrink: 0;
+    min-height: 38px;
+    padding: 0 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface-strong);
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+
+.history-clear-btn:hover:not(:disabled),
+.history-clear-btn:focus-visible {
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    transform: translateY(-1px);
+    outline: none;
+}
+
+.history-clear-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 .history-main {
     min-width: 0;
     display: flex;
@@ -866,5 +901,14 @@ select:focus,
 
     .toggle-label {
         display: none;
+    }
+
+    .section-heading.compact {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .history-clear-btn {
+        width: 100%;
     }
 }

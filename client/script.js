@@ -20,6 +20,7 @@ const btnSpinner = document.getElementById("btnSpinner");
 const resultsCard = document.getElementById("resultsCard");
 const historyCard = document.getElementById("historyCard");
 const historyList = document.getElementById("historyList");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 const locationMap = typeof LOCATION_OPTIONS === "object" && LOCATION_OPTIONS ? LOCATION_OPTIONS : {};
 
 initializeTheme();
@@ -54,6 +55,7 @@ function toggleTheme() {
 function bindEvents() {
     themeBtn.addEventListener("click", toggleTheme);
     analyzeBtn.addEventListener("click", analyse);
+    clearHistoryBtn.addEventListener("click", clearHistory);
     stateInput.addEventListener("input", handleStateChange);
     townInput.addEventListener("input", handleTownChange);
 
@@ -259,7 +261,11 @@ async function fetchHistory() {
         const response = await fetch(`${API_BASE}/history?limit=5`);
         const payload = await response.json();
 
-        if (!payload.success || payload.data.length === 0) return;
+        if (!payload.success || payload.data.length === 0) {
+            historyList.innerHTML = "";
+            historyCard.hidden = true;
+            return;
+        }
 
         historyList.innerHTML = payload.data.map((entry) => `
             <button class="history-item" type="button" data-id="${entry.id}">
@@ -277,6 +283,29 @@ async function fetchHistory() {
             button.addEventListener("click", () => reloadHistory(button.dataset.id));
         });
     } catch (_) { }
+}
+
+async function clearHistory() {
+    if (historyCard.hidden) return;
+
+    clearHistoryBtn.disabled = true;
+
+    try {
+        const response = await fetch(`${API_BASE}/history`, { method: "DELETE" });
+        const payload = await response.json();
+
+        if (!response.ok || !payload.success) {
+            renderError(payload.error || "Could not clear history right now.");
+            return;
+        }
+
+        historyList.innerHTML = "";
+        historyCard.hidden = true;
+    } catch (_) {
+        renderError("Could not clear history right now.");
+    } finally {
+        clearHistoryBtn.disabled = false;
+    }
 }
 
 async function reloadHistory(id) {

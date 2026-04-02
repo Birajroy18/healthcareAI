@@ -241,6 +241,11 @@ app.get("/api/history", (req, res) => {
     });
 });
 
+app.delete("/api/history", (req, res) => {
+    queryHistory.length = 0;
+    res.json({ success: true });
+});
+
 app.get("/api/history/:id", (req, res) => {
     const entry = queryHistory.find((h) => h.id === parseInt(req.params.id));
     if (!entry) return res.status(404).json({ error: "Entry not found." });
