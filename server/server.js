@@ -24,6 +24,7 @@ function buildGeminiRequest(prompt) {
         generationConfig: {
             temperature: 0.2,
             maxOutputTokens: 2048,
+            responseMimeType: "application/json",
         },
     };
 }
@@ -43,6 +44,22 @@ function extractJsonPayload(rawText) {
     }
 
     return trimmed;
+}
+
+function parseGeminiJson(rawText) {
+    const payload = extractJsonPayload(rawText);
+    if (!payload) {
+        throw new Error("Empty JSON response from Gemini.");
+    }
+
+    return JSON.parse(payload);
+}
+
+function summarizeRawOutput(rawText, maxLength = 240) {
+    return String(rawText || "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, maxLength);
 }
 
 function extractGroundingSources(geminiData) {
@@ -152,12 +169,12 @@ Rules:
                 const raw = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
                 try {
-                    result = JSON.parse(extractJsonPayload(raw));
+                    result = parseGeminiJson(raw);
                     break;
                 } catch (parseError) {
                     parseErrorMessage = parseError.message;
-                    console.error("Gemini JSON parse error:", parseError.message);
-                    console.error("Raw Gemini output:", raw);
+                    console.warn(`Gemini JSON parse warning on attempt ${attempt}: ${parseError.message}`);
+                    console.warn("Gemini raw output preview:", summarizeRawOutput(raw));
 
                     if (attempt < GEMINI_MAX_RETRIES) {
                         await sleep(attempt * 1200);
