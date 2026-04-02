@@ -1,3 +1,4 @@
+##### LIVE LINK : https://healthcare-ai-ashy.vercel.app/
 # HealthcareAI - Healthcare Symptom Checker
 
 HealthcareAI is an AI-powered educational symptom checker built with a lightweight client and a Node.js server. Users can describe symptoms, add quick symptom tags, include demographic and location context, and receive probable conditions, recommended next steps, and optional region-aware activity signals grounded with Google Search through Gemini.
